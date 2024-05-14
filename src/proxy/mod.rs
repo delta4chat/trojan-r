@@ -36,7 +36,7 @@ use crate::{
     },
 };
 
-const RELAY_BUFFER_SIZE: usize = 0x4000;
+const RELAY_BUFFER_SIZE: usize = 0x2000;
 
 async fn copy_udp<R: UdpRead, W: UdpWrite>(r: &mut R, w: &mut W) -> io::Result<()> {
     let mut buf = [0u8; RELAY_BUFFER_SIZE];
@@ -61,7 +61,7 @@ async fn copy_tcp<R: AsyncRead + Unpin, W: AsyncWrite + Unpin>(
         if len == 0 {
             break;
         }
-        w.write(&buf[..len]).await?;
+        w.write_all(&buf[..len]).await?;
         w.flush().await?;
     }
     Ok(())

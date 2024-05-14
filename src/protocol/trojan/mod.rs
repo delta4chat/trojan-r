@@ -122,7 +122,7 @@ impl RequestHeader {
         addr.write_to_buf(cursor);
         cursor.put_slice(crlf);
 
-        w.write(&buf).await?;
+        w.write_all(&buf).await?;
         Ok(())
     }
 }
@@ -173,7 +173,7 @@ impl UdpHeader {
         self.address.write_to_buf(cursor);
         cursor.put_u16(self.payload_len);
         cursor.put_slice(b"\r\n");
-        w.write(&buf).await?;
+        w.write_all(&buf).await?;
         Ok(())
     }
 }

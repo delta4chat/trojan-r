@@ -2,7 +2,7 @@
 name = "trojan-r"
 version = "0.1.0"
 authors = ["Page Fault <p4gefau1t@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 bytes = "1.0"
@@ -25,7 +25,7 @@ futures-util = "0.3"
 lto = true
 
 [features]
-default = ["full"]
+default = ["client"]
 client = []
 server = []
 forward = []

@@ -89,7 +89,7 @@ impl RequestHeader {
         cursor.put_u8(cmd);
         addr.write_to_buf(cursor);
 
-        w.write(&buf).await?;
+        w.write_all(&buf).await?;
         Ok(())
     }
 }
@@ -138,9 +138,9 @@ impl MuxFrame {
         cursor.put_u8(command);
         cursor.put_u16_le(data_length as u16);
         cursor.put_u32_le(stream_id);
-        writer.write(&buf).await?;
+        writer.write_all(&buf).await?;
         if let MuxFrame::Push(f) = self {
-            writer.write(&f.data).await?;
+            writer.write_all(&f.data).await?;
         }
         writer.flush().await?;
         Ok(())
